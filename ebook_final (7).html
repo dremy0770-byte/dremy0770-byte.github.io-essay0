@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>절벽 위의 소나무</title>
+<meta name="description" content="아직 숨어서 지옥을 보내는 누군가에게.">
+<meta property="og:title" content="절벽 위의 소나무">
+<meta property="og:description" content="아직 숨어서 지옥을 보내는 누군가에게.">
+<meta property="og:type" content="article">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="절벽 위의 소나무">
+<meta name="twitter:description" content="아직 숨어서 지옥을 보내는 누군가에게.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600;700&family=Noto+Sans+KR:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #1a1410;
+    --dust: #f5f0e8;
+    --warm: #c8a882;
+    --pale: #e8ddd0;
+    --accent: #8b4513;
+    --muted: #7a6a5a;
+    --line: #d4c4b0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dust);
+    color: var(--ink);
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 300;
+    line-height: 2.0;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--ink);
+    padding: 60px 40px;
+    text-align: center;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 70% 30%, rgba(139,69,19,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 20% 80%, rgba(200,168,130,0.10) 0%, transparent 50%);
+  }
+
+  .cover-pine {
+    position: absolute;
+    right: 6%;
+    bottom: 0;
+    width: clamp(140px, 22vw, 220px);
+    opacity: 0.1;
+    pointer-events: none;
+  }
+
+  .cover-episode {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.5em;
+    color: var(--warm);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 1s 0.3s forwards;
+    position: relative;
+  }
+
+  .cover-title {
+    font-size: clamp(38px, 8vw, 68px);
+    font-weight: 700;
+    color: var(--dust);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    opacity: 0;
+    animation: fadeUp 1s 0.6s forwards;
+    position: relative;
+  }
+
+  .cover-title em {
+    display: block;
+    font-style: normal;
+    color: var(--warm);
+    font-size: 0.5em;
+    font-weight: 300;
+    margin-top: 16px;
+    letter-spacing: 0.04em;
+    line-height: 1.8;
+  }
+
+  .cover-divider {
+    width: 1px;
+    height: 56px;
+    background: var(--warm);
+    margin: 40px auto;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+    position: relative;
+  }
+
+  .cover-desc {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+    line-height: 2;
+    opacity: 0;
+    animation: fadeUp 1s 1.1s forwards;
+    position: relative;
+  }
+
+  .cover-scroll {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    animation: fadeUp 1s 1.6s forwards;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .cover-scroll span {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: var(--muted);
+  }
+
+  .cover-scroll::after {
+    content: '';
+    width: 1px;
+    height: 36px;
+    background: var(--muted);
+    animation: scrollLine 1.8s 2.2s infinite;
+  }
+
+  @keyframes scrollLine {
+    0%    { transform: scaleY(0); transform-origin: top; }
+    50%   { transform: scaleY(1); transform-origin: top; }
+    50.1% { transform: scaleY(1); transform-origin: bottom; }
+    100%  { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── BOOK BODY ── */
+  .book-body {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  /* ── CHAPTER ── */
+  .chapter {
+    padding: 88px 0 72px;
+    border-top: 1px solid var(--line);
+  }
+
+  .chapter-header {
+    margin-bottom: 60px;
+  }
+
+  .chapter-num {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.5em;
+    color: var(--warm);
+    margin-bottom: 18px;
+    display: block;
+  }
+
+  .chapter-title {
+    font-size: clamp(26px, 5vw, 40px);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+  }
+
+  .chapter-title::after {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: var(--warm);
+    margin-top: 20px;
+  }
+
+  /* ── PROSE ── */
+  .prose {
+    font-size: clamp(15px, 2.5vw, 17px);
+    line-height: 2.2;
+    font-weight: 300;
+    color: #2a2018;
+  }
+
+  .prose p {
+    margin-bottom: 1.9em;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+
+  .prose .pullquote {
+    border-left: 2px solid var(--warm);
+    margin: 44px 0;
+    padding: 6px 0 6px 24px;
+    font-size: clamp(15px, 2.8vw, 18px);
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1.9;
+    font-style: italic;
+    word-break: keep-all;
+  }
+
+  /* ── ENDING ── */
+  .chapter-ending {
+    margin-top: 64px;
+    padding-top: 48px;
+    border-top: 1px solid var(--line);
+    font-size: clamp(14px, 2.2vw, 15px);
+    font-family: 'Noto Sans KR', sans-serif;
+    color: var(--muted);
+    line-height: 2.2;
+    text-align: center;
+  }
+
+  .chapter-ending strong {
+    display: block;
+    font-size: clamp(15px, 2.5vw, 17px);
+    color: var(--accent);
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 600;
+    margin-bottom: 16px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── SECTION BREAK ── */
+  .sec-break {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 48px 0;
+    color: var(--warm);
+  }
+  .sec-break::before,
+  .sec-break::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+  .sec-break span { font-size: 10px; letter-spacing: 0.3em; }
+
+  /* ── FOOTER ── */
+  .book-footer {
+    background: var(--ink);
+    color: var(--muted);
+    text-align: center;
+    padding: 56px 28px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    line-height: 2.2;
+  }
+
+  .book-footer strong {
+    color: var(--warm);
+    display: block;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+
+  /* ── SCROLL FADE ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.85s ease, transform 0.85s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 480px) {
+    .cover { padding: 48px 24px; }
+    .book-body { padding: 0 20px; }
+    .chapter { padding: 64px 0 52px; }
+    .prose .pullquote { padding-left: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ COVER ══ -->
+<section class="cover" id="top">
+  <svg class="cover-pine" viewBox="0 0 200 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <line x1="100" y1="520" x2="100" y2="110" stroke="white" stroke-width="7"/>
+    <polygon points="100,65 38,195 162,195" fill="white"/>
+    <polygon points="100,110 28,255 172,255" fill="white"/>
+    <polygon points="100,165 15,330 185,330" fill="white"/>
+    <polygon points="100,215 8,405 192,405" fill="white"/>
+    <line x1="100" y1="185" x2="48" y2="225" stroke="white" stroke-width="2.5" opacity="0.45"/>
+    <line x1="100" y1="185" x2="152" y2="225" stroke="white" stroke-width="2.5" opacity="0.45"/>
+    <line x1="100" y1="265" x2="38" y2="308" stroke="white" stroke-width="2.5" opacity="0.35"/>
+    <line x1="100" y1="265" x2="162" y2="308" stroke="white" stroke-width="2.5" opacity="0.35"/>
+  </svg>
+
+  <p class="cover-episode">에세이</p>
+  <h1 class="cover-title">
+    절벽 위의 소나무
+    <em>아직 숨어서 지옥을 보내는<br>누군가에게</em>
+  </h1>
+  <div class="cover-divider"></div>
+  <p class="cover-desc">에세이</p>
+
+  <a href="#ch-prologue" class="cover-scroll">
+    <span>읽기 시작</span>
+  </a>
+</section>
+
+
+<!-- ══ BOOK BODY ══ -->
+<div class="book-body">
+
+  <!-- ── PROLOGUE ── -->
+  <article class="chapter fade-in" id="ch-prologue">
+    <div class="chapter-header">
+      <span class="chapter-num">PROLOGUE</span>
+      <h2 class="chapter-title">그저 숨을 쉬고 싶을 뿐이다</h2>
+    </div>
+    <div class="prose">
+      <p>돌이켜보면 참 우울한 결혼생활이었다.</p>
+      <p>아직 소송이 끝나지 않은 마당에 이 글을 내는 것이 맞는지 모르겠다. 하지만 더는 기다릴 수가 없었다. 이제 나는 그저 숨을 쉬고 싶을 뿐이다.</p>
+      <p>25살 무렵, 결혼이라는 제도에 대해 아무것도 모를 때쯤 나는 인륜지대사를 천진난만하게 선택해버렸다. 내 인생의 배가 뒤집힐 것을 예상하지 못한 채.</p>
+      <p>취집을 바란 것도 아니었고, 타인에게 내 미래를 맡긴 것도 아니었다. 운전을 할 줄은 모르지만 내 인생 배는 내가 몰면서, 그저 어깨를 기댈 곳이 필요했다. 혼자는 외로우니까.</p>
+      <div class="pullquote">이 사람은 갈등이 생겨도 잘 이겨낼 수 있겠지.<br>그 일말의 기대를 안고 선택했다.</div>
+      <p>그렇게나 혈육 의존이 높은데다 회피 성향이 강하고 책임감 없는 사람일 줄은 몰랐다.</p>
+    </div>
+  </article>
+
+  <div class="sec-break fade-in"><span>◆</span></div>
+
+  <!-- ── CH 1 ── -->
+  <article class="chapter fade-in" id="ch-1">
+    <div class="chapter-header">
+      <span class="chapter-num">CHAPTER 01</span>
+      <h2 class="chapter-title">나는 을이었으니까</h2>
+    </div>
+    <div class="prose">
+      <p>신접살림은 시모의 빌라에서 시작되었다. 새 집을 사주냐는 이야기도 있었지만 그 나이의 나에겐 그런 배짱이 없었다. 있던 시모 집, 원룸 도배, 시집살이를 걱정하신 친정어머니의 2천만 원 가량의 혼수. 해주고도 수군거림을 들어야 하는 신혼이었다.</p>
+      <p>시모는 아낀다는 명목으로 상당히 인색한 사람이었다. 집 안에는 늘 주워온 물건, 중고 앱에서 무료로 받아온 것들이 가득했다. 무조건 새것이어야 한다는 게 아니었다. 그저 성의의 문제를 짚고 싶었다. 나와 가족으로 사는 것이, 그렇게 돈 아까운 일인지.</p>
+      <p>돌이켜보면 데이트할 때도 그는 늘 할인 쿠폰을 썼다. 알뜰함인 줄 알았다. 마음이 없던 것이라는 걸 알아차리는 데는 오랜 시간이 걸리지 않았다.</p>
+      <p>프로포즈는 내가 먼저 했다. 지금 보면 콩깍지가 단단히 씌었나 보다.</p>
+      <p>결혼식은 시댁 주도로 이루어졌다. 주례 없는 결혼식이었다. 속내를 말할 수 없었다. 나는 을이었으니까. 식장도 소박하게 치러졌고, 비용은 우리 측에서 부담한 것으로 기억한다. 멀리서 와줬던 친구들에게 지금도 미안하다.</p>
+      <p>성혼선언문은 기억도 안 난다. 딱히 지켜진 게 없는 결혼생활이라서.</p>
+      <p>만삭의 몸으로 시모의 기준에 맞게 집을 정리해야 했다. 이미 손목터널증후군을 직업병으로 갖고 있던 나는 손목이 굉장히 아팠다. 집 구조 자체의 문제인데 물건이 많다며 핀잔을 줬다. 초미니멀리스트인 시모는 따로 사나 싶더니 2개월 동거를 제안했고, 이후에도 계속 신혼집에 왔다. 내 명의가 아닌 시모 명의의 집이라 나는 그저 따를 수밖에 없었다. 신혼여행조차 시댁을 경유해야 했다.</p>
+    </div>
+  </article>
+
+  <div class="sec-break fade-in"><span>◆</span></div>
+
+  <!-- ── CH 2 ── -->
+  <article class="chapter fade-in" id="ch-2">
+    <div class="chapter-header">
+      <span class="chapter-num">CHAPTER 02</span>
+      <h2 class="chapter-title">이 아이는 천사가 분명했다</h2>
+    </div>
+    <div class="prose">
+      <p>서울예대를 자퇴하고 학위를 위해 백석 콘서바토리에서 공부하던 중 허니문 베이비가 찾아왔다. 두려움과 설렘이 동시에 가득했다. 그러나 머지않아 확신할 수 있었다. 이 아이는 내게 온 천사가 분명하다고.</p>
+      <p>어린 시절부터 남동생을 육아하다시피 한 K-장녀인 나에게 육아가 큰 두려움은 아니었다. 교직이수까지 마쳐두었으니 어느 정도 자신도 있었다.</p>
+      <p>만삭 때까지 스트리머 생활을 했다. 전 남편의 간섭이 심해 알리진 않았지만 레슨이나 곡 판매로 조금씩 부수입도 만들었다. 친정어머니의 지원도 있었다. 돈이 많아서가 아니었다. 어머니가 계산하신 나름의 생존 비용이었다.</p>
+      <p>스트리머 생활은 재밌었지만 사실 우울했다. 매일 실시간으로 쏟아지는 비난과 욕설, 평가. 배불리 먹은 밥 한 끼보다 가시에 찔린 기억이 오래 가듯. 결혼을 하고 나의 상품 가치는 냉정하게 떨어졌다. 세상에서 제일 싫은 게 경쟁이지만, 생존이었으니 어쩔 수 없었다.</p>
+      <div class="pullquote">그래도 내게 찾아온 생명이 더 소중했다.<br>빛나지 못할 거라면 훌륭한 부품이 되자고 결심했다.</div>
+      <p>아이가 태어났다. 6시간 30분의 산통 끝에 품에 처음 안길 때, 나는 "사랑해!"라고 외쳤다. 누군지 모르는 낯선 아이였지만, 그 순간만큼은 확실했다.</p>
+      <p>왜 아무도 알려주지 않았을까. 아이를 낳는다는 것이 이런 일이라고. 채 가시지 않은 통증을 안고 초유를 먹이는 일은 눈물겨웠다. 시모는 조리원을 못 가게 했지만 친정어머니가 극구 보내주셨다. 지금도 그게 감사하다. 인디밴드와 스트리머 생활로 오랜 다이어트에 노출되어 있던 나는 산후풍이라는 말 그대로 뼈아픈 고통을 겪었다. 평소라면 쉽게 연주했을 곡들도 칠 수 없었다.</p>
+      <p>조리원에서의 추억은 나 혼자의 것이 많다. 그래도 품 안의 아이는 예뻤다.</p>
+    </div>
+  </article>
+
+  <div class="sec-break fade-in"><span>◆</span></div>
+
+  <!-- ── CH 3 ── -->
+  <article class="chapter fade-in" id="ch-3">
+    <div class="chapter-header">
+      <span class="chapter-num">CHAPTER 03</span>
+      <h2 class="chapter-title">끝없는 터널</h2>
+    </div>
+    <div class="prose">
+      <p>나는 전 남편에게 제발 오토바이만큼은 하지 말아달라고 했다. 유복한 집안이었고, 다른 일도 얼마든지 있었다. 그는 듣지 않았다. 1차 경미한 사고가 났다. 그 경고마저 무시했다.</p>
+      <p>그리고 사고가 났다. 안와 골절 30군데에 CPR까지 투입되었다. 사고 난 전 남편의 얼굴을 목격한 나는 공황 증상이 생겼다. 14개월 돌쟁이를 아기띠에 메고 응급실 전화를 받고 택시로 달려갔다. 경황이 없던 나를 위해 주변 보호자 분이 아이를 잠시 안아주셨다. 나는 응급실 바닥에 무릎을 꿇고 기도했다. 다행히 그는 살아남았다.</p>
+      <div class="pullquote">간병만이라도 하게 해주셔서 감사하다는<br>초반의 기도와는 달리, 정말 지옥 같았다.<br>누군가를 살리기 위해 나 또한 죽어나가는 경험을 했다.</div>
+      <p>간병도 육아도 완벽하게 할 수 없었다. 그 시절 재정 상태는 아이의 돌 반지를 내다 팔아야 할 정도였다. 성공해서 꼭 금 몇 개는 모아두고 살자는 나름의 생활 철학이 그때 생겼다.</p>
+      <p>아무도 오지 않는 밤이었다. 아이를 재우고 나는 아이 모르게 두려운 밤을 맥주로 달랬다. 살던 빌라에는 우리 집 베란다로 뛰어내릴 위험이 있는 사람이 살고 있었다. 매일 한 시간 자고, 커피 마시고, 다시 일어나는 일상이 반복되었다.</p>
+      <p>7번의 수술. 오롯이 아이는 내가 돌봤다. 무서운 밤이었지만, 그때만큼 행복한 밤도 없었다. 아이와 함께였으니까.</p>
+    </div>
+  </article>
+
+  <div class="sec-break fade-in"><span>◆</span></div>
+
+  <!-- ── CH 4 ── -->
+  <article class="chapter fade-in" id="ch-4">
+    <div class="chapter-header">
+      <span class="chapter-num">CHAPTER 04</span>
+      <h2 class="chapter-title">그저 생존이었을 뿐인데</h2>
+    </div>
+    <div class="prose">
+      <p>외로운 몇 년을 견디고 난 뒤, 돌아온 그들이 처음 한 말은 집이 너저분하다는 것이었다. 돌봄서비스 선생님들이 정리를 도와주기도 했고, 부족하면 가사서비스를 불렀다. 그럼에도 퇴원하자마자 김치냉장고와 쌀벌레에 대해 야단쳤다. 나에겐 그저 생존이었을 뿐이었다만.</p>
+      <p>게으른 여성 딱지가 붙었다. 나는 그 시간 동안 심각한 우울증에 걸려 있었다. 투잡 쓰리잡에 육아까지, 몸이 하나라서 원망스러울 정도였다. 시부모의 짐도 채 정리되지 않은 집에, 툭하면 같이 살자는 시누이, 월세 내달라는 요구까지. 우리의 안전지대는 없었다.</p>
+      <p>그럼에도 아이를 포기할 수 없었다. 아이의 엄마는 나니까. 그저 아이의 아빠니까, 속에 천불이 나도 가정을 지키려 버텼다.</p>
+      <p>어느 틈엔가 전 남편이 혼자 이혼 준비를 하고 있었다. 아니, 정확히는 시집살이에 의한 이혼 준비였다. 나는 끝내 모른 척해야 했다.</p>
+      <div class="pullquote">아이 하나 보며 처절하게 버틴 시간들,<br>사랑 없는 관계에 대롱대롱 매달려<br>아이의 손을 붙들고 있는 내가<br>절벽 위의 소나무 같았다.</div>
+      <p>전 남편은 신용카드로 내 생활을 통제했다. 아이에게 드는 비용을 충당하기엔 턱없었다. 급기야 대출을 선택할 수밖에 없었다. 그것이 들켰다. 나를 내쫓으려 해서 무릎을 꿇었다. 아이 엄마만이라도 하게 해달라고. 그것이 폭력인지도 모른 채.</p>
+      <p>결국 그는 아이를 데리고 집을 나가버렸다. 정확히는, 아이가 유인되었다. 아이가 사라지고 제일 처음 한 일은 이사 갔을 것 같은 곳을 배회하는 것이었다. 전 남편에게 전화를 20통 걸었다. 돌아온 대답은 아이에게 접근하면 스토킹으로 신고하겠다는 것뿐이었다.</p>
+      <p>억장이 무너졌지만 이내 신혼집으로 돌아왔다. 나는 친정으로 갈 채비를 천천히 마쳤다.</p>
+    </div>
+  </article>
+
+  <div class="sec-break fade-in"><span>◆</span></div>
+
+  <!-- ── CH 5 ── -->
+  <article class="chapter fade-in" id="ch-5">
+    <div class="chapter-header">
+      <span class="chapter-num">CHAPTER 05</span>
+      <h2 class="chapter-title">그럼에도, 선장은 나다</h2>
+    </div>
+    <div class="prose">
+      <p>처음엔 내 자신이 무너졌다. 이내 정신을 차렸다. 맞다, 내 자신이기 전에 나는 엄마다. 어떻게든 살아내야 했다.</p>
+      <p>처음엔 나 때문인가 싶었다. 그러기엔 서사가 너무 길었고, 지켜보는 이도 많았다. 무 자르듯 결론이 나는 일이 아니었다.</p>
+      <p>아이가 떠나고 1년을 방황했다. 생명의 위협을 느꼈고, 친정어머니는 시모에게 모진 소리를 들어야 했다. 대체 왜, 라는 질문이 머릿속을 맴돌았다. 결국 대화 상대가 아니라는 걸 알아채고 대화를 멈췄다.</p>
+      <p>상담기관에서 말해줬다. 폭력 상황에서는 수평적인 대화가 불가능하다고. 당연한 말이었다. 내가 당한 것이 폭력이라고 믿고 싶지 않았을 뿐이었다.</p>
+      <p>사랑이라 믿고 싶었다. 하지만 수평적이지 않은 관계에서 사랑은 없었다. 그저 통제였다. 지나고 보니 그렇다. 나는 이제 다시는 속지 않는다.</p>
+      <div class="pullquote">재판 이혼 과정을 겪으며 나는 많이 성장했다.<br>내가 전체를 보고 있었다는 걸, 그제야 알았다.<br>그런 나를 과소평가하고 살았고,<br>나 자신에게 미안해졌다.</div>
+      <p>앞으로의 일들이 어떻게 될지 솔직히 모르겠다. 아무것도 결정된 게 없으니까. 다만 내 인생 배의 선장은 나라는 것만은 확실하다. 중간에 길을 잃지 않도록 나를 비춰준 등대 같은 분들께 진심으로 감사를 전하고 싶다.</p>
+      <p>그저 내 감정들을 정리하고 싶었다. 그동안 나 자신, 너무 고생했다.</p>
+
+      <div class="chapter-ending">
+        <strong>스스로에게, 그리고 여전히 지옥을 겪고 있을 누군가에게 손을 내밀고 싶다.</strong>
+
+      </div>
+    </div>
+  </article>
+
+</div><!-- /book-body -->
+
+<!-- ══ FOOTER ══ -->
+<footer class="book-footer">
+  <strong>절벽 위의 소나무</strong>
+  모든 내용의 저작권은 저자에게 있습니다.<br>
+  무단 전재 및 재배포를 금합니다.
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.07 });
+
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
